@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Website Title -->
+  <title>testepeca</title>
+  <!-- Bootstrap -->
+  <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font-Awesome -->
+  <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Lightbox -->
+  <link href="assets/lightbox/css/lightbox.css" rel="stylesheet">
+  <!-- Text Rotator-->
+  <link href="assets/textrotator/simpletextrotator.css" rel="stylesheet">
+  <!-- FlexSlider -->
+  <link href="assets/flexslider/flexslider.css" rel="stylesheet">
+  <!-- Theme Style -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Animations -->
+  <link href="css/animate.css" rel="stylesheet">
+  <!-- Custom Favicon -->
+  <link href="img/logo.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS para o menu de acessibilidade */
+    #accessibility-menu {
+      position: fixed;
+      bottom: 20px;
+      right: 80px; /* Ajuste para evitar sobreposição */
+      z-index: 1000;
+    }
+
+    #accessibility-button {
+      background-color: #1E90FF; /* Cor do botão */
+      border: none;
+      padding: 5px; /* Ajustando o tamanho do botão */
+      border-radius: 0; /* Removendo bordas arredondadas para deixar quadrado */
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #accessibility-button i {
+      font-size: 30px; /* Aumentando o tamanho do ícone */
+      color: white; /* Cor do ícone */
+    }
+
+    #options {
+      display: none;
+      position: absolute;
+      bottom: 70px; /* Ajustando a posição do menu */
+      right: 0;
+      background-color: white;
+      border: 1px solid #E52B50;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #options button {
+      background-color: white;
+      color: #E52B50;
+      border: none;
+      padding: 12px 20px; /* Aumentando o padding para um botão maior */
+      margin: 5px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 18px; /* Tamanho de fonte maior para melhor legibilidade */
+    }
+
+    #options button:hover {
+      background-color: #E52B50;
+      color: white;
+    }
+  </style>
+
+
+</head>
+
+  <!-- ==========================
+        CODIGOS DE MENUS DE ACESSIBILIDADE
+        =========================== -->
+
+  <!-- ****************************** Libras ************************** -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<body id="top">
+
+    <!-- ****************************** Menu acessível ************************** -->
+ <div id="accessibility-menu">
+  <button id="accessibility-button" onclick="toggleOptions()">
+      <i class="fa fa-eye"></i> <!-- Ícone de olho -->
+  </button>
+  <div id="options">
+      <button onclick="toggleTheme()">Tema Escuro</button>
+      <button id="font-size-toggle" onclick="increaseFontSize()">A+</button>
+      <button id="font-size-toggle-decrease" onclick="decreaseFontSize()" style="display:none;">A-</button>
+  </div>
+</div>
+
+<script>
+  let isDarkTheme = false;
+  let fontSize = 16; // Tamanho inicial da fonte
+  const elementsToChange = ['body', 'h2', 'p']; // Elementos a serem alterados
+
+  function toggleOptions() {
+      const options = document.getElementById("options");
+      options.style.display = options.style.display === "none" || options.style.display === "" ? "block" : "none";
+  }
+
+  function toggleTheme() {
+      isDarkTheme = !isDarkTheme;
+      document.body.style.backgroundColor = isDarkTheme ? '#333' : '#fff';
+      document.body.style.color = isDarkTheme ? '#fff' : '#000';
+  }
+
+
+      function increaseFontSize() {
+          fontSize += 2; // Aumentar tamanho da fonte
+          updateFontSize();
+          document.getElementById("font-size-toggle-decrease").style.display = "inline"; // Mostrar botão A-
+          if (fontSize >= 24) { // Limite máximo para evitar fontes muito grandes
+              document.getElementById("font-size-toggle").style.display = "none"; // Ocultar botão A+ quando o limite é alcançado
+          }
+      }
+
+      function decreaseFontSize() {
+          if (fontSize > 12) { // Limite mínimo de tamanho
+              fontSize -= 2; // Diminuir tamanho da fonte
+              updateFontSize();
+          }
+          if (fontSize <= 12) { // Ocultar botão A- se o tamanho mínimo for alcançado
+              document.getElementById("font-size-toggle-decrease").style.display = "none"; 
+          }
+          document.getElementById("font-size-toggle").style.display = "inline"; // Mostrar botão A+ novamente
+      }
+
+      function updateFontSize() {
+          elementsToChange.forEach(element => {
+              const elements = document.querySelectorAll(element);
+              elements.forEach(el => {
+                  el.style.fontSize = fontSize + 'px'; // Aplicar ao texto
+              });
+          });
+      }
+  </script>
+
+  <!-- ****************************** Preloader ************************** -->
+  <div id="preloader"></div>
+
+
+  <!-- ==========================
+        HEADER SECTION 
+        =========================== -->
+
+  <header id="home">
+    <!-- creative menu -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="menu-wrap">
+          <nav class="menu">
+            <!-- Menu Links -->
+            <div class="icon-list">
+              <a href="index.html#home"><i class="fa fa-fw fa-home"></i><span>Home</span></a>
+              <a href="index.html#about"><i class="fa fa-fw fa-quote-left"></i><span>Sobre</span></a>
+              <a href="index.html#proposta"><i class="fa fa-fw fa-briefcase"></i><span>Proposta</span></a>
+              <a href="index.html#hoteis"><i class="fa fa-fw fa-building"></i><span>Hotéis</span></a>
+              <a href="index.html#restaurantes"><i class="fa fa-fw fa-cutlery"></i><span>Restaurantes</span></a>
+              <a href="index.html#parques"><i class="fa fa-fw fa-tree"></i><span>Parques</span></a>
+              <a href="index.html#turismo"><i class="fa fa-fw fa-globe"></i><span>Turismo</span></a>
+              <a href="index.html#experiencias"><i class="fa fa-fw fa-user"></i><span>Experiências</span></a>
+              <a href="form.html"><i class="fa fa-fw fa-envelope-o"></i><span>Contato</span></a>
+            </div>
+          </nav>
+        </div>
+        <button class="menu-button" id="open-button"></button><!-- menu button -->
+      </div><!--/row-->
+    </div><!--/container-->
+
+
+    <!-- Header Image -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <!-- Slider Button (don't edit!)-->
+        <div class="row">
+          <div class="col-md-12 text-right navicon">
+            <a id="nav-toggle" class="nav_slide_button" href="index.html#"><span></span></a>
+          </div>
+        </div>
+
+        <!-- HEADER HEADLINE -->
+        <div class="row">
+          <div class="col-md-8 col-md-offset-1 inner">
+            <h1 class="animated fadeInDown">
+              <span style="color:#1B9EDE;">I </span><span style="color:#F6EB61;">N </span><span
+                  style="color:#E52B50;">C </span><span style="color:#4CAF50;">L </span><span
+                  style="color:#FF9C00;">U </span><span class="inclusiva-font" style="color:#1B9EDE;">S </span><span
+                  style="color:#F6EB61;">I </span><span style="color:#E52B50;">V </span><span
+                  style="color:#4CAF50;">A</span>
+          </h1>
+          
+            <h3 class="animated fadeInUp delay-05s"><span class="rotate">Hotéis Inclusivos, Restaurantes Inclusivos,
+                Parques Inclusivos, Turismo Inclusivo</span></h3><!-- Text Rotator -->
+          </div>
+        </div>
+  </header>
+  <!-- ==========================
+        HEADER SECTION END  
+        =========================== -->
+
+
+
+
+  <!-- ==========================
+        SEÇÃO DE SOBRE 
+        =========================== -->
+  <section class="intro text-center section-padding color-bg" id="about">
+    <div class="container about-container">
+      <!-- WELCOME TEXT -->
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 wp1"> <!-- Alterado para col-md-6 -->
+          <h1 class="arrow">Sobre <span>nós</span></h1>
+          <!-- about / welcome text -->
+          <p>O objetivo do site é conectar a comunidade de indivíduos com Transtorno do Espectro Autista (TEA) a locais inclusivos, oferecendo informações sobre estabelecimentos, permitindo feedback e avaliações de usuários, promovendo a educação sobre inclusão, disponibilizando recursos de apoio e criando um espaço para a troca de experiências. Assim, buscamos promover ambientes respeitosos e acessíveis para todos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<br></br>
+<br></br>
+<br></br>
+
+
+  <!-- ==========================
+        PROPOSTA
+        =========================== -->
+        <section id="proposta">
+          <div class="container">
+            <!-- Headline -->
+            <div class="row">
+              <div class="col-md-12">
+                <h1 class="arrow">nossas propostas</h1>
+                <div class="services row">
+                  
+                  <!-- Service Box 1 -->
+                  <div class="col-md-3 wp2 item">
+                    <div class="icon">
+                      <i class="fa fa-bed"></i><!-- Ícone de Hotel -->
+                    </div>
+                    <h2 style="text-align: center;">Hotéis</h2>
+                    <p class="service-text" style="text-align: justify;">
+                      A acessibilidade em hotéis para pessoas com autismo é crucial para o conforto. Isolamento acústico, luzes suaves e funcionários treinados criam um ambiente inclusivo e acolhedor.
+                    </p>
+                  </div>
+                  
+                  <!-- Service Box 2 -->
+                  <div class="col-md-3 wp2 item delay-05s">
+                    <div class="icon">
+                      <i class="fa fa-cutlery"></i><!-- Ícone de Restaurante -->
+                    </div>
+                    <h2 style="text-align: center;">Restaurantes</h2>
+                    <p class="service-text" style="text-align: justify;">
+                      A acessibilidade em restaurantes envolve ambientes com baixo ruído e cardápios visuais. Além disso, opções dietéticas variadas e treinamento da equipe são fundamentais.
+                    </p>
+                  </div>
+                  
+                  <!-- Service Box 3 -->
+                  <div class="col-md-3 wp2 item delay-1s">
+                    <div class="icon">
+                      <i class="fa fa-tree"></i><!-- Ícone de Parque -->
+                    </div>
+                    <h2 style="text-align: center;">Parques</h2>
+                    <p class="service-text" style="text-align: justify;">
+                      Parques devem ser inclusivos para pessoas autistas, com áreas tranquilas e menos estímulos. Sinalizações visuais e táteis ajudam na navegação pelo espaço.
+                    </p>
+                  </div>
+                  
+                  <!-- Service Box 4 -->
+                  <div class="col-md-3 wp2 item delay-15s">
+                    <div class="icon">
+                      <i class="fa fa-globe"></i><!-- Ícone de Turismo -->
+                    </div>
+                    <h2 style="text-align: center;">Turismo</h2>
+                    <p class="service-text" style="text-align: justify;">
+                      O turismo acessível deve priorizar destinos com infraestrutura adaptada para autistas. Pacotes com atividades sensoriais e informações claras reduzem a ansiedade.
+                    </p>
+                  </div>
+                </div>
+        
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+  <!-- ==========================
+      HÓTEIS
+      =========================== -->
+  <section id="hoteis" class="section-margin">
+    <div class="container">
+      <!-- Headline -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow">Hoteis <span>Inclusivos</span></h1>
+        </div>
+      </div><br><br>
+
+      <div class="container-fluid">
+        <!-- About 1 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about1.jpg)"></div><!-- about image 1 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Summerville resort – Porto de Galinhas (PE)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- headline-->
+            <p>O Summerville é o primeiro resort all inclusive do Brasil a obter o certificado do Instituto do Autismo
+              de Pernambuco. A equipe é treinada para entender as necessidades específicas das crianças autistas e
+              atividades recreativas são adaptadas para inclusão.</p><br><!-- About Text 1 -->
+            <a href="https://www.summervilleresort.com.br/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+
+        <!-- About 2 -->
+        <div class="row">
+          <div class="col-md-6 about-text">
+            <h6>Pousada Recanto da Paz – Rio de Janeiro (RJ)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- Headline -->
+            <p>A Pousada Recanto da Paz foca na inclusão, oferecendo um ambiente tranquilo, ideal para pessoas autistas.
+              Com acomodações confortáveis e um staff preparado, a pousada garante uma estadia relaxante e adaptada às
+              necessidades de cada hóspede.</p><br><!-- About Text 2 -->
+            <a href="https://www.recantodapaz.tur.br/pt/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about2.png)"></div><!-- about image 2 -->
+          </div>
+        </div>
+
+        <!-- About 3 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about3.png)"></div><!-- about image 3 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Hotel Marina – Bahia (BA)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- Headline-->
+            <p>O Hotel Marina disponibiliza um ambiente inclusivo e diversas atividades adaptadas para hóspedes
+              autistas.
+              Com profissionais capacitados e infraestrutura adequada, o hotel visa proporcionar conforto e segurança
+              para toda a família.</p><br><!-- About Text 3 -->
+            <a href="https://marinaportoabrolhos.com.br/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br></br>
+<br></br>
+
+
+  <!-- ==========================
+      RESTAURANTES
+      =========================== -->
+  <section id="restaurantes" class="section-margin">
+    <div class="container">
+      <!-- Headline -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow">Restaurantes <span>Inclusivos</span></h1>
+        </div>
+      </div><br><br>
+
+      <div class="container-fluid">
+        <!-- About 1 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about4.png)"></div><!-- about image 1 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Outback Steakhouse – Diversas Localidades
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- headline-->
+
+            <p>O Outback Steakhouse tem um clima alegre e é famoso por seus pratos fartos, como costelas e cebola
+              empanada. Com acessibilidade garantida, o restaurante oferece rampas, mesas adequadas para cadeirantes e
+              uma equipe treinada para oferecer um atendimento acolhedor, tornando a experiência agradável para todos.
+            </p>
+            <br><!-- About Text 1 -->
+            <a href="https://www.outback.com.br" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+
+        <!-- About 2 -->
+        <div class="row">
+          <div class="col-md-6 about-text">
+            <h6>Coco Bambu – Diversas Localidades
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- Headline -->
+            <p>A rede Coco Bambu é conhecida por suas adaptações de acessibilidade em várias unidades. Os restaurantes
+              contam com rampas, banheiros adaptados e espaços amplos para garantir conforto e segurança a todos os
+              clientes. A filosofia da rede prioriza a inclusão, tornando-a uma opção viável para pessoas com
+              deficiências.</p><br><!-- About Text 2 -->
+            <a href="https://cocobambu.com" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about5.png)"></div><!-- about image 2 -->
+          </div>
+        </div>
+
+        <!-- About 3 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about6.jpg)"></div><!-- about image 3 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Espetinho do Vini – Guaíba (RS) </h6><!-- Headline-->
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            <p>O Espetinho do Vini é o 1º restaurante adaptado para crianças autistas do Brasil, com fones abafadores de
+              som, mesas dentro da área kids, cadeiras especiais, proteções de vidro e um cardápio que pode ser adaptado
+              de acordo com as necessidades alimentares das crianças.</p><br><!-- About Text 3 -->
+            <a href="https://www.instagram.com/espetinhodovini/" target="_blank" class="weight-outline-btn">Saiba
+              Mais</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br></br>
+<br></br>
+
+  <!-- ==========================
+      PARQUES
+      =========================== -->
+  <section id="parques" class="section-margin">
+    <div class="container">
+      <!-- Headline -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow">Parques <span>Inclusivos</span></h1>
+        </div>
+      </div><br><br>
+
+      <div class="container-fluid">
+        <!-- About 1 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about7.jpg)"></div><!-- about image 1 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Hopi Hari – Vinhedo (SP)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- headline-->
+            <p>Localizado em Vinhedo, o Hopi Hari é um dos maiores parques temáticos da América Latina. Ele oferece
+              atrações para todas as idades e níveis de adrenalina, com um foco em acessibilidade e inclusão, garantindo
+              rampas de acesso, banheiros adaptados e assentos preferenciais nas principais atrações.</p>
+            <br><!-- About Text 1 -->
+            <a href="https://www.hopihari.com.br/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+
+        <!-- About 2 -->
+        <div class="row">
+          <div class="col-md-6 about-text">
+            <h6>Terra Mágica Florybal – Canela (RS)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- Headline -->
+            <p>Localizado em Canela, o Terra Mágica Florybal é um parque temático encantador que mistura natureza,
+              cultura e diversão. Ele oferece uma experiência acessível, com rampas de acesso, banheiros adaptados e
+              áreas interativas para crianças e adultos, garantindo inclusão e diversão para toda a família.</p>
+            <br><!-- About Text 2 -->
+            <a href="https://www.florybal.com.br/terra-magica" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about8.jpg)"></div><!-- about image 2 -->
+          </div>
+        </div>
+
+        <!-- About 3 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about9.jpg)"></div><!-- about image 3 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Hot Beach Park – Olímpia (SP)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- headline-->
+            <p>Localizado em Olímpia, o Hot Beach Park é um parque aquático que proporciona momentos de pura diversão e
+              relaxamento. Com uma infraestrutura de acessibilidade notável, o parque conta com rampas de acesso,
+              banheiros adaptados e áreas de descanso, assegurando que todos os visitantes possam desfrutar de suas
+              atrações com conforto e segurança.</p><br><!-- About Text 3 -->
+            <a href="https://hotbeach.com.br/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br></br>
+<br></br>
+
+  <!-- ==========================
+      TURISMO
+      =========================== -->
+  <section id="turismo" class="section-margin">
+    <div class="container">
+      <!-- Headline -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow">Turismo <span>Inclusivo</span></h1>
+        </div>
+      </div><br><br>
+
+      <div class="container-fluid">
+        <!-- About 1 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about10.png)"></div><!-- about image 1 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>AquaRio – Rio de Janeiro (RJ)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- headline-->
+            <p>Localizado no coração do Rio de Janeiro, o AquaRio é uma atração imperdível para os amantes da vida
+              marinha. Com uma infraestrutura de acessibilidade de alta qualidade, o espaço oferece rampas de acesso,
+              banheiros adaptados e recursos informativos, permitindo que todos os visitantes tenham uma experiência
+              única e inclusiva enquanto exploram as diversas espécies aquáticas.</p><br><!-- About Text 1 -->
+            <a href="https://aquariomarinhodorio.com.br/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+
+        <!-- About 2 -->
+        <div class="row">
+          <div class="col-md-6 about-text">
+            <h6>Museu do Amanhã – Rio de Janeiro (RJ)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- Headline -->
+            <p>O Museu do Amanhã se destaca por promover a inclusão e a acessibilidade, oferecendo atividades e exposições que consideram diferentes necessidades sensoriais. 
+              Além disso, o espaço realiza ações educativas adaptadas, proporcionando uma experiência enriquecedora para pessoas no espectro autista e suas famílias, estimulando a curiosidade e a compreensão sobre o futuro do planeta.</p><br>
+            <a href="https://museudoamanha.org.br/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about11.jpg)"></div><!-- about image 2 -->
+          </div>
+        </div>
+
+        <!-- About 3 -->
+        <div class="row color-bg">
+          <div class="col-md-6 nopadding features-intro-img">
+            <div class="about-image" style="background-image:url(img/about12.jpg)"></div><!-- about image 3 -->
+          </div>
+          <div class="col-md-6 about-text">
+            <h6>Parque Nacional da Serra da Capivara – Piauí (PI)
+              <br></br>
+              <div class="star-rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+            </h6><!-- headline-->
+            <p>O Parque Nacional da Serra da Capivara é uma das principais atrações turísticas do Brasil, e está
+              se adaptando para ser acessível. Com trilhas inclusivas, rampas e guias especializados, o parque oferece
+              uma experiência acessível em meio à natureza.</p><br><!-- About Text 3 -->
+            <a href="https://serradacapivara.org/" target="_blank" class="weight-outline-btn">Saiba Mais</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br></br>
+
+
+
+  <!-- ==========================
+    EXPERIÊNCIAS 
+=========================== -->
+  <section id="experiencias">
+    <div class="container">
+      <!-- Headline -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="arrow">Experiências <span>Inclusivas</span></h1>
+        </div>
+      </div><br><br>
+
+      <!-- Blog Slider -->
+      <div class="row">
+        <div id="blogSlider">
+          <ul class="slides">
+            <li>
+              <!-- Blog Entry 1 -->
+              <div class="col-md-4 wp4">
+                <div class="overlay-effect effects clearfix">
+                  <div class="img">
+                    <img src="img/experiencia1.png" class="grayscale" alt="Blog Item"><!-- Blog Image -->
+                  </div>
+                </div>
+                <br>
+                <h2>AquaRio 
+
+                </h2><!-- Headline -->
+                <p>“Incrível, muito bom. Meu filho autista amou, não ficou agitado, apesar da movimentação.”
+
+                </p><!-- Description-->
+              </div>
+              <!-- Blog Entry 2 -->
+              <div class="col-md-4 wp4 delay-05s">
+                <div class="overlay-effect effects clearfix">
+                  <div class="img">
+                    <img src="img/experiencia2.jpeg" class="grayscale" alt="Blog Item"><!-- Blog Image -->
+                  </div>
+                </div>
+                <br>
+                <h2>Hot Beach</h2><!-- Headline -->
+                <p>“O selo “Amiga do Autista” atesta que os colaboradores que atuam com o atendimento ao público no
+                  parque aquático Hot Beach Olímpia, entre eles recepcionistas, monitores e recreadores, estão aptos a
+                  lidar e receber com excelência pessoas com TEA e suas famílias.”
+                </p><!-- Description -->
+              </div>
+              <!-- Blog Entry 3 -->
+              <div class="col-md-4 wp4 delay-1s">
+                <div class="overlay-effect effects clearfix">
+                  <div class="img">
+                    <img src="img/experiencia3.jpg" class="grayscale" alt="Blog Item"><!-- Blog Image -->
+                  </div>
+                </div>
+                <br>
+                <h2>Summerville Resort</h2><!-- Headline -->
+                <p>“Nota 1000 !!! Lugar realmente incrível. Comida excelente mas sobre tudo o atendimento. Pessoas
+                  acolhedoras e com uma simpatia única !! Tenso um filho especial , fomos recepcionadas numa mesa
+                  identificada com a fitinha do autismo. Para pais de crianças neuro atípicas isto faz total diferença
+                  !!”
+                </p><!-- Description-->
+              </div>
+            </li>
+            <li>
+              <!-- Blog Entry 4 -->
+              <div class="col-md-4 wp4">
+                <div class="overlay-effect effects clearfix">
+                  <div class="img">
+                    <img src="img/experiencia4.png" class="grayscale" alt="Blog Item"><!-- Blog Image -->
+                  </div>
+                </div>
+                <br>
+                <h2>terra magica florybal</h2><!-- Headline -->
+                <p>“ Fomos em família, foi um passeio muito divertido e agradável. Dar os parabéns para o acolhimento e
+                  a inclusão para as crianças autistas, meu filho autista amou , não teve crise sensorial, simplesmente
+                  porque o parque oferece tranquilamente e diversão. Voltaremos em breve e iremos novamente.”</p>
+                <!-- Description -->
+              </div>
+              <!-- Blog Entry 5 -->
+              <div class="col-md-4 wp4 delay-05s">
+                <div class="overlay-effect effects clearfix">
+                  <div class="img">
+                    <img src="img/experiencia5.jpg" class="grayscale" alt="Blog Item"><!-- Blog Image -->
+                  </div>
+                </div>
+                <br>
+                <h2>Hopi Hari</h2>
+                <p>“Meu filho é autista e entrou de graça pelo código azul, tanto ele quanto todos nós da família
+                  recebemos o vip pass e mesmo se houvesse alguma fila podíamos passar na frente “</p>
+              </div>
+              <!-- Blog Entry 6 -->
+              <div class="col-md-4 wp4 delay-1s">
+                <div class="overlay-effect effects clearfix">
+                  <div class="img">
+                    <img src="img/experiencia6.png" class="grayscale" alt="Blog Item"><!-- Blog Image -->
+                  </div>
+                </div>
+                <br>
+                <h2>espetinho do vini</h2><!-- Headline -->
+                <p>“É um ambiente bem acolhedor, não tem som alto e a área kids é bem moldada com brinquedos sensoriais,
+                  inclusive tem fones de ouvido para as crianças que não gostam de barulhos fortes”
+                </p><!-- Description -->
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+<p> </p>
+  </section>
+  <style>
+    /* Estilos para o formulário, evitando mudanças nas margens do site */
+    form {
+      font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: none /* Fundo da página */
+}
+
+/* Estilo do wrapper do formulário */
+.contact-wrap {
+    position: relative;
+    margin: 20px; /* Margem ao redor do formulário */
+}
+
+/* Estilo do formulário */
+.contact {
+    margin-top: -20px !important;
+}
+
+/* Estilos dos rótulos */
+.contact label {
+    float: left;
+}
+
+/* Estilos dos campos de entrada */
+.contact .form-control {
+    margin-bottom: 20px;
+    border: 1px solid #cbcbcb;
+    height: 45px;
+    border-radius: 0 !important;
+    box-shadow: none;
+}
+
+.contact textarea.form-control {
+    height: 310px;
+}
+
+/* Estilo ao focar nos campos de entrada */
+.contact .form-control:focus {
+    box-shadow: none;
+    border: 1px solid #B0B0B0;
+}
+
+/* Estilo do botão enviar */
+.btn-send {
+    background: #E04343;
+    color: white;
+    transition: all 0.4s;
+    border-radius: 0;
+    float: right;
+}
+
+.btn-send:hover {
+    background: #FFE800;
+    color: #E04343;
+}
+
+/* Estilo da avaliação com estrelas */
+.star-rating {
+    direction: rtl; /* Inverte a direção das estrelas */
+    display: inline-block;
+    font-size: 25px; /* Tamanho maior das estrelas */
+    margin-bottom: 10px;
+}
+
+.star-rating input {
+    display: none; /* Oculta os inputs de rádio */
+}
+
+.star-rating label {
+    color: lightgray; /* Cor padrão das estrelas */
+    cursor: pointer;
+}
+
+.star-rating input:checked ~ label {
+    color: gold; /* Cor das estrelas selecionadas */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold; /* Cor ao passar o mouse */
+}
+</style>
+</head>
+<br>
+<section class="text-center section-padding contact-wrap" id="contact">
+  <a href="index.html#top" class="up-btn"><i class="fa fa-chevron-up"></i></a>
+  
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <h1 class="arrow">Seu Feedback é <span>Importante!</span></h1>
+              <p>Ajude-nos a melhorar nossos serviços. Sua opinião importa!</p>
+              <br>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 contact">
+              <form role="form" class="text-center">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="name">Nome:</label> <!-- Adicione esta linha -->
+                              <input type="text" class="form-control" placeholder="Seu nome" required>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="name">Imagem:</label> <!-- Adicione esta linha -->
+                              <input type="file" class="form-control" accept="image/*">
+                          </div>
+                      </div>
+                  </div>
+                  <label for="name">Avaliação:</label> <!-- Adicione esta linha -->
+                  <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5" />
+                    <label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1">★</label>
+                </div>
+                
+                  <div class="form-group">
+                    <label for="name">Feedback:</label> <!-- Adicione esta linha -->
+                      <textarea class="form-control" placeholder="Escreva seu feedback aqui..." style="height: 100px;" required></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-send">Enviar Feedback</button>
+              </form>
+          </div>
+      </div>
+      <br>
+  </div>
+</section>
+  <!-- ==========================
+        FOOTER SECTION
+        =========================== -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>© 2024 Inclusiva. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ==========================
+        FOOTER SECTION END
+        =========================== -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/smoothscroll/smoothscroll.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/waypoints.min.js"></script>
+  <script src="js/classie.js"></script>
+  <script src="assets/flexslider/jquery.flexslider.js"></script>
+  <script src="js/modernizr.js"></script>
+  <script src="assets/textrotator/jquery.simple-text-rotator.js"></script>
+  <script src="assets/lightbox/js/lightbox.min.js"></script>
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeKBBPJTG3v5w3cNPAgM6ZsJiPyL1mP_o&amp;sensor=false"></script>
+  <script src="js/main.js"></script>
+  <script src="js/script.js"></script>
+
+  <script type="text/javascript">
+    $(".rotate").textrotator({
+      animation: "fade",
+      separator: ",",
+      speed: 2000
+    });
+  </script>
+
+</body>
+
+</html>
